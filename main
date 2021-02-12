@@ -1,0 +1,172 @@
+#include <iostream>
+#include<conio.h>
+#include<stdlib.h>
+using namespace std;
+class abstractclass
+{
+public:
+    virtual void getinfo()=0;
+    virtual void showdata()=0;
+};
+class info:public abstractclass
+{
+private:
+    string name,address;
+    int age,idNo;
+public:
+    int day,month,year,salary;
+   void getinfo();
+   void showdata();
+};
+void info:: getinfo()
+
+    {
+        cout<<"enter name  :";
+        cin>>name;
+        cout<<"enter age :";
+        cin>>age;
+        cout<<"enter address :";
+        cin>>address;
+        cout<<"enter  id :";
+        cin>>idNo;
+        cout<<"enter salary :";
+        cin>>salary;
+    }
+ void info:: showdata()
+    {
+        cout<<"name of employee is :"<<name<<endl;
+        cout<<"age of employee is :"<<age<<endl;
+        cout<<"address of employee is :"<<address<<endl;
+        cout<<"cell number of employee is :"<<idNo<<endl;
+        cout<<"salay of employee is :"<<salary<<endl;
+         cout<<"date of joining is :"<<day<<"/"<<month<<"/"<<year<<endl;
+    }
+
+
+class manager: public info
+{
+private:
+    string educ;
+    int Wexp;
+public:
+    manager(int x,int y,int z)
+    {
+        day=x;
+        month=y;
+        year=z;
+        cout<<"Showing data of manager "<<endl;
+    }
+    void getinfo();
+    void showdata();
+};
+ void manager::getinfo()
+    {
+        info::getinfo();
+        cout<<"enter education :";
+        cin>>educ;
+        cout<<"enter work experience :";
+        cin>>Wexp;
+    }
+     void manager::showdata()
+    {
+        info::showdata();
+        cout<<"education of employee is :"<<educ<<endl;
+        cout<<"work experience of employee is :"<<Wexp<<" years"<<endl;
+
+    }
+class internie
+{
+private:
+    string educ;
+public:
+     info obj;
+    internie(int x,int y,int z)
+    {
+         obj.day=x;
+       obj.month=y;
+        obj.year=z;
+         cout<<"Showing data of internie "<<endl;
+    }
+
+
+    void getinfo();
+    void showdata();
+
+};
+ void internie::getinfo()
+    {
+        obj.getinfo();
+         cout<<"enter education :";
+        cin>>educ;
+    }
+    void internie::showdata()
+    {
+        obj.showdata();
+        cout<<"education of internie is :"<<educ<<endl;
+    }
+class lowgradeemployee:public info
+{
+private:
+    static int total;
+public:
+        lowgradeemployee(){
+        }
+
+        static void show()
+        {
+            cout<<"total number of low grade employees are  :"<<total<<endl;
+        }
+    lowgradeemployee(int x,int y,int z)
+    {
+        total++;
+        day=x;
+     month=y;
+       year=z;
+    }
+    void getdata(){
+    info::getinfo();
+   }
+    void showdata()
+    {
+       info::showdata();
+    }
+    lowgradeemployee operator+(lowgradeemployee obj)
+    {
+        lowgradeemployee temp;
+        temp.salary=salary+obj.salary;
+        return temp;
+        }
+};
+int lowgradeemployee::total=0;
+int main()
+{
+    abstractclass* ptr;
+    manager m1(12,04,2009);
+    ptr=&m1;
+    ptr->getinfo();
+    cout<<endl;
+    ptr->showdata();
+    cout<<endl<<endl;
+    internie i1(12,9,2020);
+    i1.getinfo();
+    cout<<endl;
+    i1.showdata();
+    cout<<endl<<endl;
+   cout<<"data of low grade employees "<<endl;
+lowgradeemployee o1(12,2,2000),o2(12,2,2005);
+cout<<"employee 1"<<endl;
+o1.getdata();
+cout<<"employee 2"<<endl;
+o2.getdata();
+o2.show();
+cout<<endl;
+cout<<"data of employee 1"<<endl;
+o1.showdata();
+cout<<endl;
+cout<<"data of employee 2"<<endl;
+o2.showdata();
+lowgradeemployee o3;
+o3=o1+o2;
+cout<<endl;
+cout<<"total wage bill of low grade employees is "<<o3.salary;
+}
